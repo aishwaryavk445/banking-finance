@@ -33,5 +33,15 @@ pipeline {
                sh 'docker push aishwaryavk445/banking-finance:1.0'      
             }
         }
+        stage('Configure Server with terraform and deploy using Ansible') {
+          steps {
+             dir('my-server') {
+             sh 'sudo chmod 600 Awskeypair.pem'
+             sh 'terraform init'
+             sh 'terraform validate'
+             sh 'terraform apply --auto-approve'
+                }
+             }
+         }
        }
      }
